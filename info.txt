@@ -1,0 +1,22 @@
+
+系统信息：
+
+目标地址：     0xFF,0xFF,0xFF,0xFF,0xFF
+
+通讯频率：2.400GHz
+
+发射功率：0dBm
+
+低噪声放大增益：开启
+
+========================
+
+system message:
+
+Destination address: 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+
+Communication frequency: 2.400GHz
+
+Transmission power: 0dBm
+
+Low Noise Amplification Gain: On
