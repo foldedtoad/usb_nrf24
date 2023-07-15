@@ -11,7 +11,8 @@ txa  = "AT+TXA"
 
 # Configure the serial connections 
 ser = serial.Serial(
-    port='/dev/ttyUSB0',
+    port='/dev/ttyUSB0',              # for Ubuntu
+    #port='/dev/cu.usbserial-144160',   # for MacOS
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -33,7 +34,6 @@ while 1 :
         print("========================")
 
 '''
-
 AT Commands
 
 System info : AT?
@@ -67,5 +67,5 @@ Operating Freq. : AT+FREQ=2.nnnG
 Checksum mode : AT+CRC=n 
                 where n = 8 /16
                 (default : 16 bit)
-
+'''
         
