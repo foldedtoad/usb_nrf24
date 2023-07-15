@@ -22,16 +22,16 @@ ser = serial.Serial(
 ser.isOpen()
 
 while 1 :
-        ser.write(info.encode())
-        out = b'\x00'
-        # Wait one second before reading output 
-        # (let's give device time to answer)
-        time.sleep(1)
-        while ser.inWaiting() > 0:
-            out = ser.readline()
-            print(ser.readline().decode('gb18030'))
+    ser.write("AT?".encode())
+    out = ''
+    # Wait one second before reading output 
+    # (let's give device time to answer)
+    time.sleep(1)
+    while ser.inWaiting() > 0:
+        out = ser.readline()
+        print(ser.readline().decode('gb18030'))
 
-        print("========================")
+    print("========================")
 
 '''
 AT Commands
