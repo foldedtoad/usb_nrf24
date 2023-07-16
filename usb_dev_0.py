@@ -15,44 +15,26 @@ ser = serial.Serial(
 
 ser.isOpen()
 
-print("I'm " + Name + "on " + Device)
+print("\nI'm " + Name + " on " + Device)
 
-
-#====================================================================
-ser.write("AT+BAUD=2".encode())
-time.sleep(1)
-while ser.inWaiting() > 0:
-    out = ser.readline()
-    print(ser.readline().decode('gb18030'))
-
-ser.write("AT+RATE=3".encode())
-time.sleep(1)
-while ser.inWaiting() > 0:
-    out = ser.readline()
-    print(ser.readline().decode('gb18030'))
-
-ser.write("AT+RXA=0XE7,0XE7,0XE7,0XE7,0XE7".encode())
-time.sleep(1)
-while ser.inWaiting() > 0:
-    out = ser.readline()
-    print(ser.readline().decode('gb18030'))
-
-ser.write("AT+TXA=0XE7,0XE7,0XE7,0XE7,0XE7".encode())
-time.sleep(1)
-while ser.inWaiting() > 0:
-    out = ser.readline()
-    print(ser.readline().decode('gb18030'))
+ser.write("AT+BAUD=2\n".encode())
+ser.write("AT+RATE=3\n".encode())
+ser.write("AT+RXA=0x11,0x22,0x33,0x44,0x55\n".encode())
+ser.write("AT+TXA=0xE7,0xE7,0xE7,0xE7,0xE7\n".encode())
 
 print("========================")
 
-#====================================================================
+count = 1
 
 while 1 :
-    ser.write((Name+"\n").encode())
-    out = ''
+    ser.write((Name + "\n").encode())
+    line = ''
     time.sleep(1)
+    #'''
     poll = ser.inWaiting()
     while poll > 0:
-        out = ser.readline()
-        if out != '':
-            print(out)
+        line = ser.readline().decode('gb18030')
+        if line != '':
+            print(str(count) + ": " + line)
+            count += 1
+    #'''
