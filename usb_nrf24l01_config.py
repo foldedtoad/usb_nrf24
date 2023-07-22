@@ -1,18 +1,18 @@
 import time
 import serial
 
-info = "AT?"
-baud = "AT+BAUD"
-rate = "AT+RATE"
-freq = "AT+FREQ"
-crc  = "AT+CRC"
-rxa  = "AT+RXA"
-txa  = "AT+TXA"
+Device = '/dev/ttyUSB0'
+RXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
+TXA    = "0X11,0X22,0X33,0X44,0X55"
+
+BAUD_cmd = "AT+BAUD=2\n"
+RATE_cmd = "AT+RATE=3\n"
+RXA_cmd  = "AT+RXA=" + RXA + "\n"
+TXA_cmd  = "AT+TXA=" + TXA + "\n"
 
 # Configure the serial connections 
 ser = serial.Serial(
-    port='/dev/ttyUSB0',              # for Ubuntu
-    #port='/dev/cu.usbserial-144160',   # for MacOS
+    port=Device,
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -21,17 +21,47 @@ ser = serial.Serial(
 
 ser.isOpen()
 
-while 1 :
-    ser.write("AT?".encode())
-    out = ''
-    # Wait one second before reading output 
-    # (let's give device time to answer)
-    time.sleep(1)
-    while ser.inWaiting() > 0:
-        out = ser.readline()
-        print(ser.readline().decode('gb18030'))
+print("\nUsing: " + Device)
+print("RXA: " + RXA)
+print("TXA: " + TXA)
 
-    print("========================")
+print("========================")
+
+ser.write(BAUD_cmd.encode('gb18030'))
+ser.write(RATE_cmd.encode('gb18030'))
+
+ser.write(RXA_cmd.encode('gb18030'))
+time.sleep(1)
+while ser.inWaiting() > 0:
+    print(ser.read_until().decode('gb18030'))
+    print(ser.read_until().decode('gb18030'))
+
+print("======================== RXA ")
+
+ser.write(TXA_cmd.encode('gb18030'))
+time.sleep(1)
+while ser.inWaiting() > 0:
+    line = ser.read_until()
+    header = '地址设置成功！'.encode('gb18030')
+    if header.decode('gb18030') in line.decode('gb18030') :
+        print("The address is set successfully!")
+
+    line = ser.read_until()
+    header = '目标地址'.encode('gb18030')
+    if header.decode('gb18030') in line.decode('gb18030') :
+        print("RX Address: " + line[12:].decode('gb18030'))
+
+print("======================== TXA ")
+
+ser.write("AT?".encode())
+out = ''
+time.sleep(1)
+while ser.inWaiting() > 0:
+    out = ser.readline()
+    print(ser.readline().decode('gb18030'))
+
+print("========================")
+
 
 '''
 AT Commands
