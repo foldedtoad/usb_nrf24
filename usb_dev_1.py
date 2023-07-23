@@ -37,8 +37,8 @@ count = 1
 
 while 1 :
     ser.write((Name + "\n").encode())
+    time.sleep(0.05)
     line = ''
-    time.sleep(1)
     poll = ser.inWaiting()
     while poll > 0:
         line = ser.readline().decode('gb18030')

@@ -1,7 +1,7 @@
 import time
 import serial
 
-Name   = "tweedledum"
+Name   = "receiver"
 Device = "/dev/ttyUSB0"
 RXA    = "0X11,0X22,0X33,0X44,0X55"
 TXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
@@ -36,9 +36,8 @@ print("========================")
 count = 1
 
 while 1 :
-    ser.write((Name + "\n").encode())
-    time.sleep(0.05)
     line = ''
+    time.sleep(0.05)
     poll = ser.inWaiting()
     while poll > 0:
         line = ser.readline().decode('gb18030')
