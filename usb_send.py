@@ -1,52 +1,61 @@
 import time
 import serial
 
-Name = "sender"
-Device = '/dev/ttyUSB1'
-RXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
-TXA    = "0X11,0X22,0X33,0X44,0X55"
+from usb_select import *
 
-BAUD_cmd = "AT+BAUD=2\n"
-RATE_cmd = "AT+RATE=3\n"
-RXA_cmd  = "AT+RXA=" + RXA + "\n"
-TXA_cmd  = "AT+TXA=" + TXA + "\n"
+def main():
 
-# Configure the serial connections 
-ser = serial.Serial(
-    port=Device,
-    baudrate=9600,
-    parity=serial.PARITY_NONE,
-    stopbits=serial.STOPBITS_ONE,
-    bytesize=serial.EIGHTBITS
-)
+    Name   = "sender"
+    RXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
+    TXA    = "0X11,0X22,0X33,0X44,0X55"
 
-ser.isOpen()
+    BAUD_cmd = "AT+BAUD=2\n"
+    RATE_cmd = "AT+RATE=3\n"
+    RXA_cmd  = "AT+RXA=" + RXA + "\n"
+    TXA_cmd  = "AT+TXA=" + TXA + "\n"
 
-print("\n" + Name + " on " + Device)
-#print("RXA: " + RXA)
-#print("TXA: " + TXA)
+    print("\nApp: " + Name)
 
-ser.write(BAUD_cmd.encode())
-ser.write(RATE_cmd.encode())
-ser.write(RXA_cmd.encode())
-ser.write(TXA_cmd.encode())
-time.sleep(0.3)
+    Port = port_selector()
+    if Port == None :
+        return
 
-while ser.inWaiting() > 0:
-    ser.readline().decode('gb18030')
+    # Configure the serial connections 
+    ser = serial.Serial(
+        port=Port,
+        baudrate=9600,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize=serial.EIGHTBITS
+    )
 
-print("======= config ========")
+    ser.isOpen()
 
-ser.write("AT?".encode('gb18030'))
-time.sleep(0.3)
-while ser.inWaiting() > 0:
-    print(ser.readline().decode('gb18030').rstrip("\n"))
+    ser.write(BAUD_cmd.encode())
+    ser.write(RATE_cmd.encode())
+    ser.write(RXA_cmd.encode())
+    ser.write(TXA_cmd.encode())
+    time.sleep(0.3)
 
-print("========================")
+    while ser.inWaiting() > 0:
+        ser.readline().decode('gb18030')
 
-input("Press any key to begin")
+    print("======= config ========")
 
-while 1 :
-    ser.write((Name + "\n").encode())
-    time.sleep(0.05)
-  
+    ser.write("AT?".encode('gb18030'))
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        print(ser.readline().decode('gb18030').rstrip("\n"))
+
+    print("========================")
+
+    input("Press any key to begin")
+
+    while 1 :
+        ser.write((Name + "\n").encode())
+        time.sleep(0.05)
+
+    pass
+
+if __name__ == "__main__":
+    main()
