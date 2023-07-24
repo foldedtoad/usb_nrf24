@@ -27,30 +27,11 @@ print("RXA: " + RXA)
 print("TXA: " + TXA)
 
 ser.write(BAUD_cmd.encode())
-time.sleep(0.3)
-line = ser.read_until().decode('gb18030')
 ser.write(RATE_cmd.encode())
-time.sleep(0.3)
-line = ser.read_until().decode('gb18030')
 ser.write(RXA_cmd.encode())
-time.sleep(0.3)
-line = ser.read_until().decode('gb18030')
 ser.write(TXA_cmd.encode())
-time.sleep(0.3)
-line = ser.read_until().decode('gb18030')
-
 
 print("========================")
-
-'''
-ser.write("AT?".encode('gb18030'))
-time.sleep(0.3)
-while ser.inWaiting() > 0:
-    line = ser.read_until()
-    print(line.decode('gb18030'))
-
-print("========================")
-'''
 
 count = 1
 
