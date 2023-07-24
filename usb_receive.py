@@ -23,24 +23,36 @@ ser = serial.Serial(
 ser.isOpen()
 
 print("\n" + Name + " on " + Device)
-print("RXA: " + RXA)
-print("TXA: " + TXA)
+#print("RXA: " + RXA)
+#print("TXA: " + TXA)
 
 ser.write(BAUD_cmd.encode())
 ser.write(RATE_cmd.encode())
 ser.write(RXA_cmd.encode())
 ser.write(TXA_cmd.encode())
+time.sleep(0.3)
+
+while ser.inWaiting() > 0:
+    ser.read_until().decode('gb18030')
+
+print("======= config ========")
+
+ser.write("AT?".encode('gb18030'))
+time.sleep(0.3)
+while ser.inWaiting() > 0:
+    print(ser.read_until().decode('gb18030').rstrip("\n"))
 
 print("========================")
+
+input("Press any key to begin")
 
 count = 1
 
 while 1 :
     line = ''
     time.sleep(0.05)
-    poll = ser.inWaiting()
-    while poll > 0:
-        line = ser.readline().decode('gb18030')
+    while ser.inWaiting() > 0:
+        line = ser.readline().decode('gb18030').rstrip("\n")
         if line != '':
             print(str(count) + ": " + line)
             count += 1
