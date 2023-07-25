@@ -1,22 +1,25 @@
+========================
 
-系统信息：
-
-目标地址：     0xFF,0xFF,0xFF,0xFF,0xFF
-
-通讯频率：2.400GHz
-
-发射功率：0dBm
-
-低噪声放大增益：开启
+  OK
+  系统信息：
+  波特率：9600
+  目标地址：     0xAA,0xBB,0xCC,0xDD,0xEE
+  本地接收地址0：0x11,0x22,0x33,0x44,0x55
+  通讯频率：2.400GHz
+  校验模式：16位CRC校验
+  发射功率：0dBm
+  空中传输速率：2Mbps
+  低噪声放大增益：开启
 
 ========================
 
-system message:
-
-Destination address: 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-
-Communication frequency: 2.400GHz
-
-Transmission power: 0dBm
-
-Low Noise Amplification Gain: On
+OK
+   system message:
+   Baud rate: 9600
+   Target address: 0xAA, 0xBB, 0xCC, 0xDD, 0xEE
+   Local receiving address 0: 0x11, 0x22, 0x33, 0x44, 0x55
+   Communication frequency: 2.400GHz
+   Check mode: 16-bit CRC check
+   Transmission power: 0dBm
+   Air transmission rate: 2Mbps
+   Low Noise Amplification Gain: On

@@ -2,6 +2,7 @@ import time
 import serial
 
 from usb_select import *
+from translate import *
 
 def main():
 
@@ -42,10 +43,7 @@ def main():
 
     print("======= config ========")
 
-    ser.write("AT?".encode('gb18030'))
-    time.sleep(0.3)
-    while ser.inWaiting() > 0:
-        print(ser.readline().decode('gb18030').rstrip("\n"))
+    translate_config(ser)
 
     print("========================")
 
