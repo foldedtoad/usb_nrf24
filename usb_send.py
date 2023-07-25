@@ -53,7 +53,6 @@ def main():
         ser.write((Name + "\n").encode())
         time.sleep(0.05)
 
-    pass
 
 if __name__ == "__main__":
     main()

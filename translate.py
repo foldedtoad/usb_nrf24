@@ -73,7 +73,8 @@ if __name__ == "__main__":
 
     Port = port_selector()
     if Port == None :
-        pass
+        print("Error: not ports found")
+        exit()
 
     # Configure the serial connections 
     ser = serial.Serial(

@@ -60,7 +60,6 @@ def main():
                 print(str(count) + ": " + line)
                 count += 1
 
-    pass
 
 if __name__ == "__main__":
     main()
