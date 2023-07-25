@@ -33,4 +33,4 @@ def port_selector():
 	pass
 
 if __name__ == "__main__":
-	device_selector()
+	port_selector()
