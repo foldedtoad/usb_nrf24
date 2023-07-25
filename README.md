@@ -7,4 +7,4 @@ USB-to-nRF24L01 Dongle Project
 Below is a screenshot showing the intraction between two devices.  
 The two programs are *usb_dev_0.py* and *usb_dev_1.py*.    
 
-![here](https://github.com/foldedtoad/usb_nrf24/blob/master/images/two_on_one_host.png)
+![here](https://github.com/foldedtoad/usb_nrf24/blob/master/images/send_receive.png)
