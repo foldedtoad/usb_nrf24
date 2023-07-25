@@ -56,9 +56,8 @@ def main():
         time.sleep(0.05)
         while ser.inWaiting() > 0:
             line = ser.readline().decode().rstrip("\n")
-            if line != '':
-                print(str(count) + ": " + line)
-                count += 1
+            print(str(count) + ": " + line)
+            count += 1
 
 
 if __name__ == "__main__":
