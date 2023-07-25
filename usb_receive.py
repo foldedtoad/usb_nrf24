@@ -55,7 +55,7 @@ def main():
         line = ''
         time.sleep(0.05)
         while ser.inWaiting() > 0:
-            line = ser.readline().decode('gb18030').rstrip("\n")
+            line = ser.readline().decode().rstrip("\n")
             if line != '':
                 print(str(count) + ": " + line)
                 count += 1
