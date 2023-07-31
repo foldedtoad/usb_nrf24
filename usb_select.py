@@ -8,14 +8,20 @@ def port_selector():
 	table_of_ports = []
 
 	for n, (p, descriptor, hid) in enmu_ports:
+		# if CH340T serial device
 		if "VID:PID=1A86:7523" in hid:
 			table_of_ports.append(p)
+		# if FTDI serial device
+		if "VID:PID=0403:6001" in hid:
+			table_of_ports.append(p)			
 
 	elements = len(table_of_ports)
 
 	if elements == 0 :
 		print("\nError: No suitable ports found\n")
 		return None
+
+	table_of_ports.sort()
 
 	print("List of available devices")
 	for n in table_of_ports:

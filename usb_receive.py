@@ -1,3 +1,6 @@
+import sys
+sys.dont_write_bytecode = True
+
 import time
 import serial
 
@@ -9,9 +12,12 @@ def main():
     Name   = "receiver"
     RXA    = "0X11,0X22,0X33,0X44,0X55"
     TXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
+    #RXA    = "0X34,0X43,0X10,0X10,0X01"
+    #TXA    = "0X34,0X43,0X10,0X10,0X02"
 
     BAUD_cmd = "AT+BAUD=2\n"
     RATE_cmd = "AT+RATE=3\n"
+    FREQ_cmd = "AT+FREQ=2.400G\n"
     RXA_cmd  = "AT+RXA=" + RXA + "\n"
     TXA_cmd  = "AT+TXA=" + TXA + "\n"
 
@@ -32,14 +38,32 @@ def main():
 
     ser.isOpen()
 
+    print("===== AT commands ======")
+
     ser.write(BAUD_cmd.encode())
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        print(ser.readline().decode('gb18030').rstrip("\n"))
+
     ser.write(RATE_cmd.encode())
-    ser.write(RXA_cmd.encode())
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        print(ser.readline().decode('gb18030').rstrip("\n"))
+
+    ser.write(FREQ_cmd.encode())
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        print(ser.readline().decode('gb18030').rstrip("\n"))
+    
     ser.write(TXA_cmd.encode())
     time.sleep(0.3)
-
     while ser.inWaiting() > 0:
-        ser.read_until().decode('gb18030')
+        print(ser.readline().decode('gb18030').rstrip("\n"))
+
+    ser.write(RXA_cmd.encode())
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        print(ser.readline().decode('gb18030').rstrip("\n"))
 
     print("======= config ========")
 
