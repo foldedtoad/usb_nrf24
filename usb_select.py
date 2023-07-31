@@ -32,7 +32,7 @@ def port_selector():
 		if raw.isdigit() :
 			select = int(raw)
 			if (select >= 0 and select < elements) :
-				print("Selected " + table_of_ports[select])
+				print("Selected port " + table_of_ports[select])
 				return table_of_ports[select]
 		print("Error: Invalid selection...try again")
 

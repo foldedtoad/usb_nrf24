@@ -38,38 +38,38 @@ def main():
 
     ser.isOpen()
 
-    print("===== AT commands ======")
+    print("===== AT command responses =====")
 
     ser.write(BAUD_cmd.encode())
     time.sleep(0.3)
     while ser.inWaiting() > 0:
-        print(ser.readline().decode('gb18030').rstrip("\n"))
+        translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
 
     ser.write(RATE_cmd.encode())
     time.sleep(0.3)
     while ser.inWaiting() > 0:
-        print(ser.readline().decode('gb18030').rstrip("\n"))
+        translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
 
     ser.write(FREQ_cmd.encode())
     time.sleep(0.3)
     while ser.inWaiting() > 0:
-        print(ser.readline().decode('gb18030').rstrip("\n"))
+        translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
     
-    ser.write(TXA_cmd.encode())
-    time.sleep(0.3)
-    while ser.inWaiting() > 0:
-        print(ser.readline().decode('gb18030').rstrip("\n"))
-
     ser.write(RXA_cmd.encode())
     time.sleep(0.3)
     while ser.inWaiting() > 0:
-        print(ser.readline().decode('gb18030').rstrip("\n"))
+        translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
 
-    print("======= config ========")
+    ser.write(TXA_cmd.encode())
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
+        
+    print("======== Final Config ==========")
 
     translate_config(ser)
 
-    print("========================")
+    print("================================")
 
     input("Press any key to begin")
 
