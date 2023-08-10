@@ -21,6 +21,14 @@ def translate_resp(Line):
         print(">> Transmit Power: " + Line[5:])
         return
 
+    if '低噪声放大增益：' in Line :
+        if '开启' in  Line[8:] :
+            state = "ON"
+        else:
+            state = "OFF"
+        print(">> LNA Gain: " + state)
+        return
+
     if "通讯频率设置成功" in Line :
         print("   Transmit Freq. set successfully")
         return
@@ -29,22 +37,36 @@ def translate_resp(Line):
         print(">> Transmit Freq.: " + Line[5:])
         return
 
+    if '传输速率' in Line :
+        print(">> TX Rate: " + Line[5:])
+        return
+
+    if "校验模式设置成功" in Line :
+        print("   CRC set successfully")
+        return        
+
+    if "校验模式" in Line :
+        if "16" in Line :
+            print(">> CRC: " + Line[5:7] + "-bit")
+            return
+        if "8" in Line :
+            print(">> CRC: " + Line[5:6] + "-bit")
+            return
+        return
+
     if "地址设置成功" in Line :
-        print("   RXA set successfully")
+        print("   Address set successfully")
         return
 
     if "本地接收地址0" in Line :
-        print(">> RXA 0: " + Line[7:])
-        return
-
-    if "地址设置成功" in Line :
-        print("   TXA set successfully")
-        return
+        print(">> RXA: " + Line[8:])       
+        return        
 
     if "目标地址" in Line :
-        print(">> TXA: " + Line[6:])
-        return
+        print(">> TXA: " + Line[10:])       
+        return  
 
+    print("unrecognised " + Line)
 
 def translate_config(ser):
 

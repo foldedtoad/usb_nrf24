@@ -18,6 +18,7 @@ def main():
     BAUD_cmd = "AT+BAUD=2\n"
     RATE_cmd = "AT+RATE=3\n"
     FREQ_cmd = "AT+FREQ=2.400G\n"
+    CRC_cmd  = "AT+CRC=16\n"
     RXA_cmd  = "AT+RXA=" + RXA + "\n"
     TXA_cmd  = "AT+TXA=" + TXA + "\n"
 
@@ -54,7 +55,12 @@ def main():
     time.sleep(0.3)
     while ser.inWaiting() > 0:
         translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
-    
+
+    ser.write(CRC_cmd.encode())
+    time.sleep(0.3)
+    while ser.inWaiting() > 0:
+        translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
+
     ser.write(RXA_cmd.encode())
     time.sleep(0.3)
     while ser.inWaiting() > 0:
@@ -64,7 +70,7 @@ def main():
     time.sleep(0.3)
     while ser.inWaiting() > 0:
         translate_resp(ser.readline().decode('gb18030').rstrip("\n"))
-        
+
     print("======== Final Config ==========")
 
     translate_config(ser)
