@@ -89,10 +89,12 @@ def main(argv):
 
     input("Press any key to begin")
 
+    count = 1
+
     while 1 :
-        #ser.write((Name + "\n" + '\0').encode())
-        ser.write((Name + '\0').encode())
+        ser.write((Name + " count=" + str(count) + "\n" + '\0').encode())
         time.sleep(0.05)
+        count += 1
 
 
 if __name__ == "__main__":

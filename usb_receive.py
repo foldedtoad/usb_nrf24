@@ -21,8 +21,8 @@ def main(argv):
     print ('update config ', config)
 
     Name   = "receiver"
-    RXA    = "0X11,0X22,0X33,0X44,0X55"
-    TXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
+    TXA    = "0X11,0X22,0X33,0X44,0X55"
+    RXA    = "0XAA,0XBB,0XCC,0XDD,0XEE"
 
     BAUD_cmd = "AT+BAUD=2\n"
     RATE_cmd = "AT+RATE=3\n"
@@ -95,8 +95,6 @@ def main(argv):
         line = ''
         time.sleep(0.05)
         while ser.inWaiting() > 0:
-            #line = ser.read(9).decode()
-            #print(raw)
             line = ser.readline().decode().rstrip("\n")
             print(str(count) + ": " + line)
             count += 1
